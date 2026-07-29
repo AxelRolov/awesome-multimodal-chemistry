@@ -1,0 +1,30 @@
+name: Report an error
+description: A wrong number, licence, link or claim in the list
+title: "[fix] "
+labels: [correction]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Corrections are the point of this list. Thank you for taking the time.
+
+  - type: input
+    id: entry
+    attributes:
+      label: Which entry?
+      placeholder: ChemVLM
+    validations: { required: true }
+
+  - type: dropdown
+    id: field
+    attributes:
+      label: What is wrong?
+      options: [Scale or benchmark number, Licence, Paper or code link, Year or venue, Modality tags, The note itself, Something else]
+    validations: { required: true }
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: What it should say, and your source
+      description: A link to the exact page, section or file that shows the correct value.
+    validations: { required: true }

@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Browse the searchable index
+    url: https://axelrolov.github.io/awesome-multimodal-chemistry/
+    about: Filter by modality, search across models, datasets and papers.
+  - name: Read the full review
+    url: https://github.com/AxelRolov/awesome-multimodal-chemistry/blob/main/REVIEW.md
+    about: The narrative argument behind the tables, with numbers and citations.

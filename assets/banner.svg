@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" width="1200" height="300" role="img" aria-label="Awesome Multi-Modal Chemistry">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1020"/>
+      <stop offset="45%" stop-color="#131a35"/>
+      <stop offset="100%" stop-color="#1d1233"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="35%" stop-color="#7dd3fc"/>
+      <stop offset="70%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#f0abfc"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7dd3fc" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0.15"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bg)"/>
+
+  <!-- faint grid -->
+  <g stroke="#ffffff" stroke-opacity="0.035">
+    <path d="M0 60H1200M0 120H1200M0 180H1200M0 240H1200"/>
+    <path d="M100 0V300M200 0V300M300 0V300M400 0V300M500 0V300M600 0V300M700 0V300M800 0V300M900 0V300M1000 0V300M1100 0V300"/>
+  </g>
+
+  <!-- molecular scaffold, right side -->
+  <g transform="translate(880,150)" opacity="0.9">
+    <g stroke="url(#fade)" stroke-width="2.5" fill="none" filter="url(#glow)">
+      <path d="M0,-70 L60,-35 L60,35 L0,70 L-60,35 L-60,-35 Z"/>
+      <path d="M0,-70 L0,-120"/>
+      <path d="M60,35 L118,68"/>
+      <path d="M-60,35 L-118,68"/>
+      <path d="M-60,-35 L-118,-68"/>
+      <path d="M0,70 L0,120"/>
+      <path d="M-118,-68 L-176,-40"/>
+      <path d="M118,68 L176,40"/>
+    </g>
+    <g fill="#5eead4">
+      <circle cx="0" cy="-70" r="6"/><circle cx="60" cy="-35" r="6"/><circle cx="60" cy="35" r="6"/>
+      <circle cx="0" cy="70" r="6"/><circle cx="-60" cy="35" r="6"/><circle cx="-60" cy="-35" r="6"/>
+    </g>
+    <g fill="#a78bfa">
+      <circle cx="0" cy="-120" r="7"/><circle cx="118" cy="68" r="7"/><circle cx="-118" cy="68" r="7"/>
+      <circle cx="-118" cy="-68" r="7"/><circle cx="0" cy="120" r="7"/>
+    </g>
+    <g fill="#f0abfc">
+      <circle cx="-176" cy="-40" r="5"/><circle cx="176" cy="40" r="5"/>
+    </g>
+  </g>
+
+  <!-- spectrum trace, bottom left -->
+  <g transform="translate(70,238)" opacity="0.55">
+    <path d="M0 0 L18 0 L22 -26 L26 0 L54 0 L58 -46 L62 0 L96 0 L100 -14 L104 0 L140 0 L144 -60 L148 0 L188 0 L192 -22 L196 0 L240 0 L244 -34 L248 0 L300 0 L304 -12 L308 0 L360 0"
+          stroke="url(#accent)" stroke-width="2" fill="none" stroke-linejoin="round"/>
+  </g>
+
+  <text x="70" y="118" font-family="ui-sans-serif,-apple-system,Segoe UI,Inter,Helvetica,Arial,sans-serif"
+        font-size="60" font-weight="800" fill="url(#accent)" letter-spacing="-1.5">Awesome</text>
+  <text x="70" y="176" font-family="ui-sans-serif,-apple-system,Segoe UI,Inter,Helvetica,Arial,sans-serif"
+        font-size="50" font-weight="700" fill="#e6ecff" letter-spacing="-1">Multi-Modal Chemistry</text>
+  <text x="72" y="206" font-family="ui-monospace,SFMono-Regular,Menlo,monospace"
+        font-size="15" fill="#8ea0c8" letter-spacing="2.6">GRAPHS · 3D · SPECTRA · IMAGES · REACTIONS · TEXT</text>
+</svg>

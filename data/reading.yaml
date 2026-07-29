@@ -1,0 +1,151 @@
+# Surveys, critical evaluations, and safety / governance references.
+
+surveys:
+  - title: "Leveraging Biomolecule and Natural Language through Multi-Modal Learning: A Survey"
+    authors: "Qizhi Pei et al."
+    year: 2024
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2403.01528
+    note: The most complete map of biomolecule–text cross-modal modelling, covering molecules, proteins and the datasets that join them to language.
+
+  - title: "Bridging Text and Molecule: A Survey on Multimodal Frameworks for Molecule"
+    authors: "Yi Xiao et al."
+    year: 2024
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2403.13830
+    note: Organises molecule–text models by pretraining objective, alignment strategy and downstream task.
+
+  - title: "From Generalist to Specialist: A Survey of Large Language Models for Chemistry"
+    authors: "Yang Han et al."
+    year: 2025
+    venue: "COLING 2025"
+    url: https://arxiv.org/abs/2412.19994
+    note: Explicitly frames how graphs, 3D structures and spectra get injected into chemistry LLMs, plus a benchmark audit.
+
+  - title: "From Words to Molecules: A Survey of Large Language Models in Chemistry"
+    authors: "Chang Liao et al."
+    year: 2024
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2402.01439
+    note: Early systematic taxonomy of molecular input representations for LLMs.
+
+  - title: "A review of large language models and autonomous agents in chemistry"
+    authors: "Mayk Caldas Ramos et al."
+    year: 2025
+    venue: "Chemical Science"
+    url: https://pubs.rsc.org/en/content/articlelanding/2025/sc/d4sc03921a
+    note: The reference review for chemistry LLM agents and tool use, with a maintained companion repository.
+
+  - title: "A Survey of Large Language Models for Text-Guided Molecular Discovery"
+    authors: "Ziqing Wang et al."
+    year: 2025
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2505.16094
+    note: Focused on language-conditioned molecule generation and optimisation.
+
+  - title: "Artificial Intelligence in Spectroscopy: Advancing Chemistry from Prediction to Generation and Beyond"
+    authors: "Kehan Guo et al."
+    year: 2025
+    venue: "IJCAI 2025 Survey Track"
+    url: https://arxiv.org/abs/2502.09897
+    note: Best current survey for AI-driven structure elucidation across MS, NMR and IR.
+
+  - title: "A Comprehensive Survey of Scientific Large Language Models and Their Applications in Scientific Discovery"
+    authors: "Yu Zhang et al."
+    year: 2024
+    venue: "arXiv"
+    url: https://arxiv.org/abs/2406.10833
+    note: Situates molecule, protein and material LLMs relative to text-only scientific models.
+
+  - title: "A Perspective on Foundation Models in Chemistry"
+    authors: "Junyoung Choi et al."
+    year: 2025
+    venue: "JACS Au"
+    url: https://pubs.acs.org/doi/10.1021/jacsau.4c01160
+    note: Defines what actually qualifies as a chemistry foundation model, and where multimodal pretraining does not transfer.
+
+  - title: "Molecular representation learning: cross-domain foundations and future frontiers"
+    authors: "Rahul Sheshanarayana, Fengqi You"
+    year: 2025
+    venue: "Digital Discovery"
+    url: https://pubs.rsc.org/en/content/articlelanding/2025/dd/d5dd00170f
+    note: Flags hybrid multimodal fusion and 3D-aware representations as the main open frontiers.
+
+  - title: "Advancements in Molecular Property Prediction: A Survey of Single and Multimodal Approaches"
+    authors: "Tanya Liyaqat et al."
+    year: 2025
+    venue: "Archives of Computational Methods in Engineering"
+    url: https://arxiv.org/abs/2408.09461
+    note: Directly contrasts single-modality against multi-view encoders for property prediction.
+
+  - title: "Materials science in the era of large language models: a perspective"
+    authors: "Ge Lei, Ronan Docherty, Samuel J. Cooper"
+    year: 2024
+    venue: "Digital Discovery"
+    url: https://pubs.rsc.org/en/content/articlelanding/2024/dd/d4dd00074a
+    note: Argues LLMs are best used as tireless task automators rather than idea generators.
+
+critiques:
+  - title: "ORDerly: Data Sets and Benchmarks for Chemical Reaction Data"
+    authors: "Daniel S. Wigh et al."
+    year: 2024
+    venue: "J. Chem. Inf. Model."
+    url: https://pubs.acs.org/doi/10.1021/acs.jcim.4c00292
+    note: Undisclosed cleaning choices silently inflate reported reaction-condition performance.
+
+  - title: "Re-evaluating retrosynthesis algorithms with syntheseus"
+    authors: "Krzysztof Maziarz et al."
+    year: 2025
+    venue: "Faraday Discussions"
+    url: https://pubs.rsc.org/en/content/articlelanding/2025/fd/d4fd00093e
+    note: Published retrosynthesis rankings largely dissolve once search and evaluation are standardised.
+
+  - title: "Challenging Reaction Prediction Models to Generalize to Novel Chemistry"
+    authors: "John Bradshaw et al."
+    year: 2025
+    venue: "ACS Central Science"
+    url: https://pubs.acs.org/doi/10.1021/acscentsci.5c00055
+    note: Random splits of USPTO-style data are in-distribution; proposes document, author, time and reaction-type OOD splits.
+
+  - title: "A framework for evaluating the chemical knowledge and reasoning abilities of large language models against the expertise of chemists"
+    authors: "Adrian Mirza et al."
+    year: 2025
+    venue: "Nature Chemistry"
+    url: https://www.nature.com/articles/s41557-025-01815-x
+    note: ChemBench — models beat expert chemists on average yet fail on safety-relevant items and are badly calibrated.
+
+  - title: "Probing the limitations of multimodal language models for chemistry and materials research"
+    authors: "Nawaf Alampara et al."
+    year: 2025
+    venue: "Nature Computational Science"
+    url: https://www.nature.com/articles/s43588-025-00836-3
+    note: MaCBench — perception is fine, spatial reasoning and cross-modal synthesis are not.
+
+governance:
+  - title: "Dual use of artificial-intelligence-powered drug discovery"
+    authors: "Fabio Urbina, Filippa Lentzos, Cédric Invernizzi, Sean Ekins"
+    year: 2022
+    venue: "Nature Machine Intelligence"
+    url: https://www.nature.com/articles/s42256-022-00465-9
+    note: Inverting a toxicity model turns a generative drug-design pipeline into a toxin-design pipeline.
+
+  - title: "Regulation (EU) 2024/1689 — Artificial Intelligence Act"
+    authors: "European Parliament and Council"
+    year: 2024
+    venue: "EUR-Lex"
+    url: https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng
+    note: Binding source text for general-purpose AI provider obligations (Chapter V, Arts. 51–56).
+
+  - title: "Artificial Intelligence Risk Management Framework (AI RMF 1.0)"
+    authors: "NIST"
+    year: 2023
+    venue: "NIST AI 100-1"
+    url: https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10
+    note: The Govern/Map/Measure/Manage framework most chemistry-AI risk policies are written against.
+
+  - title: "AI, data governance and privacy: Synergies and areas of international co-operation"
+    authors: "OECD"
+    year: 2024
+    venue: "OECD Artificial Intelligence Papers"
+    url: https://www.oecd.org/en/publications/ai-data-governance-and-privacy_2476b1a4-en.html
+    note: Reference statement on data governance, relevant to provenance and licensing of chemical corpora.

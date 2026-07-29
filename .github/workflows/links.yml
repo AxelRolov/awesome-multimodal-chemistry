@@ -1,0 +1,47 @@
+name: links
+
+on:
+  schedule:
+    - cron: "0 6 * * 1"   # Mondays, 06:00 UTC
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "data/**"
+      - "README.md"
+      - "REVIEW.md"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  lychee:
+    name: Every URL still resolves
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --no-progress
+            --max-concurrency 4
+            --timeout 30
+            --retry-wait-time 5
+            --max-retries 2
+            --accept 200,206,301,302,403,429
+            --exclude-path docs/index.html
+            README.md REVIEW.md CONTRIBUTING.md 'data/**/*.yaml'
+          output: lychee.out
+          fail: false
+
+      - name: Open an issue if anything broke
+        if: steps.lychee.outputs.exit_code != 0
+        uses: peter-evans/create-issue-from-file@v5
+        with:
+          title: "Broken links detected"
+          content-filepath: lychee.out
+          labels: broken-link, maintenance

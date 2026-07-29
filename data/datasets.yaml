@@ -1,0 +1,314 @@
+# Datasets and benchmarks. Scale figures are quoted from the source paper or the
+# live database, not estimated. `data` points at the most stable download route.
+
+- name: PubChem
+  title: "PubChem 2025 update"
+  year: 2025
+  venue: "Nucleic Acids Research"
+  paper: https://doi.org/10.1093/nar/gkae1059
+  data: https://pubchem.ncbi.nlm.nih.gov/docs/downloads
+  kind: corpus
+  modalities: [smiles, graph, 3d, text]
+  scale: "118.6M compounds, 322.4M substances, 295.4M bioactivity data points (Sep 2024)"
+  license: unspecified
+  note: The backbone corpus behind almost every molecule–text pretraining set.
+
+- name: ChEMBL
+  title: "The ChEMBL Database in 2023"
+  year: 2023
+  venue: "Nucleic Acids Research"
+  paper: https://doi.org/10.1093/nar/gkad1004
+  data: https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/
+  kind: corpus
+  modalities: [smiles, text]
+  scale: ">20.3M bioactivity measurements on 2.4M compounds from >1.6M assays"
+  license: CC BY-SA 3.0
+  note: Assay descriptions make it a genuine text modality, not only a label source.
+
+- name: PubChemSTM
+  title: "Multi-modal molecule structure–text model for text-based retrieval and editing"
+  year: 2023
+  venue: "Nature Machine Intelligence"
+  paper: https://arxiv.org/abs/2212.10789
+  data: https://huggingface.co/datasets/chao1224/MoleculeSTM
+  kind: pretraining
+  modalities: [graph, smiles, text]
+  scale: ">280,000 structure–text pairs"
+  license: unspecified
+  note: Built for MoleculeSTM; heterogeneous text licences blocked a full release.
+
+- name: PubChem324k
+  title: "MolCA: Molecular Graph-Language Modeling with Cross-Modal Projector and Uni-Modal Adapter"
+  year: 2023
+  venue: "EMNLP 2023"
+  paper: https://aclanthology.org/2023.emnlp-main.966/
+  data: https://huggingface.co/datasets/acharkq/PubChem324kV2
+  kind: pretraining
+  modalities: [graph, smiles, text]
+  scale: "324k molecule–text pairs; 15k high-quality subset (>19 words)"
+  license: unspecified
+  note: The default graph–text pretraining set for projector-based assistants.
+
+- name: MolLM dataset
+  title: "MolLM: a unified language model for integrating biomedical text with 2D and 3D molecular representations"
+  year: 2024
+  venue: "Bioinformatics (ISMB 2024)"
+  paper: https://doi.org/10.1093/bioinformatics/btae260
+  data: https://github.com/gersteinlab/MolLM
+  kind: pretraining
+  modalities: [graph, 3d, text]
+  scale: "160K molecule–text pairings with 2D and 3D information"
+  license: unspecified
+  note: Rare in carrying 2D, 3D and text for the same molecule.
+
+- name: HiPubChem
+  title: "HIGHT: Hierarchical Graph Tokenization for Molecule-Language Alignment"
+  year: 2025
+  venue: "ICML 2025"
+  paper: https://arxiv.org/abs/2406.14021
+  data: https://huggingface.co/datasets/lfhase/HIGHT
+  kind: pretraining
+  modalities: [graph, text]
+  scale: "295k molecule–text pairs with motif annotations (Jan 2024 cutoff)"
+  license: CC BY-NC 4.0
+  note: Adds explicit functional-group supervision to graph–text alignment.
+
+- name: Mol-Instructions
+  title: "Mol-Instructions: A Large-Scale Biomolecular Instruction Dataset for Large Language Models"
+  year: 2024
+  venue: "ICLR 2024"
+  paper: https://arxiv.org/abs/2306.08018
+  data: https://huggingface.co/datasets/zjunlp/Mol-Instructions
+  kind: instruction
+  modalities: [smiles, text]
+  scale: "148.4K molecule, 505K protein and 53K biotext instructions"
+  license: CC BY 4.0
+  note: The default instruction-tuning corpus for chemistry assistants.
+
+- name: ChEBI-20
+  title: "Text2Mol: Cross-Modal Molecule Retrieval with Natural Language Queries"
+  year: 2021
+  venue: "EMNLP 2021"
+  paper: https://doi.org/10.18653/v1/2021.emnlp-main.47
+  data: https://github.com/cnedwards/text2mol
+  kind: benchmark
+  modalities: [smiles, text]
+  scale: "33,010 molecule–description pairs, 80/10/10 split"
+  license: unspecified
+  note: Still the standard captioning and text-to-molecule benchmark.
+
+- name: MoleculeNet
+  title: "MoleculeNet: a benchmark for molecular machine learning"
+  year: 2018
+  venue: "Chemical Science"
+  paper: https://doi.org/10.1039/C7SC02664A
+  data: https://github.com/deepchem/deepchem
+  kind: benchmark
+  modalities: [smiles, graph, 3d]
+  scale: "17 datasets, >800 tasks over ~700,000 compounds"
+  license: CC BY-NC 3.0
+  note: The default property-prediction suite; also the most saturated.
+
+- name: QM9
+  title: "Quantum chemistry structures and properties of 134 kilo molecules"
+  year: 2014
+  venue: "Scientific Data"
+  paper: https://doi.org/10.1038/sdata.2014.22
+  data: https://doi.org/10.6084/m9.figshare.978904
+  kind: benchmark
+  modalities: [3d]
+  scale: "133,885 species with up to nine heavy atoms, 15 DFT properties"
+  license: CC BY-NC-SA 4.0
+  note: The small-molecule 3D benchmark every geometry-aware model reports.
+
+- name: GEOM
+  title: "GEOM, energy-annotated molecular conformations for property prediction and molecular generation"
+  year: 2022
+  venue: "Scientific Data"
+  paper: https://doi.org/10.1038/s41597-022-01288-4
+  data: https://doi.org/10.7910/DVN/JNGTDF
+  kind: corpus
+  modalities: [3d]
+  scale: "37M conformations for >450,000 molecules"
+  license: CC0
+  note: What made conformer-rich multi-view pretraining practical.
+
+- name: PCQM4Mv2 / OGB-LSC
+  title: "OGB-LSC: A Large-Scale Challenge for Machine Learning on Graphs"
+  year: 2021
+  venue: "NeurIPS 2021 D&B"
+  paper: https://arxiv.org/abs/2103.09430
+  data: https://ogb.stanford.edu/docs/lsc/pcqm4mv2/
+  kind: benchmark
+  modalities: [graph, 3d]
+  scale: "3,746,619 molecules with DFT HOMO–LUMO gaps"
+  license: CC BY 4.0
+  note: The quantum benchmark that anchors large-scale graph pretraining claims.
+
+- name: Alchemy
+  title: "Alchemy: A Quantum Chemistry Dataset for Benchmarking AI Models"
+  year: 2019
+  venue: "arXiv / ICML 2019 workshop"
+  paper: https://arxiv.org/abs/1906.09427
+  data: https://github.com/tencent-alchemy/Alchemy
+  kind: benchmark
+  modalities: [3d]
+  scale: "119,487 molecules up to 14 heavy atoms, 12 quantum properties"
+  license: MIT
+  note: A larger, less saturated alternative to QM9.
+
+- name: USPTO-50k
+  title: "What's What: The (Nearly) Definitive Guide to Reaction Role Assignment"
+  year: 2016
+  venue: "J. Chem. Inf. Model."
+  paper: https://doi.org/10.1021/acs.jcim.6b00564
+  data: https://github.com/Hanjun-Dai/GLN
+  kind: benchmark
+  modalities: [reaction]
+  scale: "50k reactions of 10 types; 40,008 / 5,001 / 5,007 split"
+  license: unspecified
+  note: The canonical retrosynthesis benchmark — and the most criticised one.
+
+- name: USPTO-full
+  title: "Retrosynthesis Prediction with Conditional Graph Logic Network"
+  year: 2019
+  venue: "NeurIPS 2019"
+  paper: https://arxiv.org/abs/2001.01408
+  data: https://doi.org/10.6084/m9.figshare.5104873
+  kind: benchmark
+  modalities: [reaction]
+  scale: "~1M unique reactions, 800k / 100k / 100k split"
+  license: unspecified
+  note: The scale test for reaction models; noisier than USPTO-50k.
+
+- name: Open Reaction Database (ORD)
+  title: "The Open Reaction Database"
+  year: 2021
+  venue: "JACS"
+  paper: https://doi.org/10.1021/jacs.1c09820
+  data: https://huggingface.co/datasets/open-reaction-database/ord-data
+  kind: corpus
+  modalities: [reaction, text]
+  scale: "structured reaction records with conditions, yields and free-text procedures"
+  license: CC BY-SA 4.0
+  note: Built explicitly so reaction data could be shared for machine learning.
+
+- name: ORDerly
+  title: "ORDerly: Data Sets and Benchmarks for Chemical Reaction Data"
+  year: 2024
+  venue: "J. Chem. Inf. Model."
+  paper: https://doi.org/10.1021/acs.jcim.4c00292
+  data: https://figshare.com/articles/dataset/ORDerly_chemical_reactions_condition_benchmarks/23298467
+  kind: benchmark
+  modalities: [reaction]
+  scale: "356,906 reactions in the condition-prediction benchmark, from 1.7M ORD reactions"
+  license: MIT
+  note: Shows how much reported performance depends on undisclosed cleaning choices.
+
+- name: OpenExp
+  title: "ReactXT: Understanding Molecular \"Reaction-ship\" via Reaction-Contextualized Molecule-Text Pretraining"
+  year: 2024
+  venue: "Findings of ACL 2024"
+  paper: https://arxiv.org/abs/2405.14225
+  data: https://github.com/syr-cn/ReactXT
+  kind: benchmark
+  modalities: [reaction, text]
+  scale: "274k reaction–procedure pairs, 8:1:1 split"
+  license: CC BY-SA
+  note: First open dataset for unseen experimental procedure prediction.
+
+- name: Multimodal Spectroscopic Dataset
+  title: "Unraveling Molecular Structure: A Multimodal Spectroscopic Dataset for Chemistry"
+  year: 2024
+  venue: "NeurIPS 2024 D&B"
+  paper: https://arxiv.org/abs/2407.17492
+  data: https://doi.org/10.5281/zenodo.14770232
+  kind: corpus
+  modalities: [nmr, ir, ms, smiles]
+  scale: "1H/13C/HSQC NMR, IR and ±MS for 790,000 patent-derived molecules"
+  license: CDLA-Sharing-1.0
+  note: The dataset that made joint multi-spectrum training possible at scale.
+
+- name: IR–NMR multimodal dataset
+  title: "IR–NMR multimodal computational spectra dataset for 177K patent-extracted organic molecules"
+  year: 2025
+  venue: "Scientific Data"
+  paper: https://doi.org/10.1038/s41597-025-05729-8
+  data: https://doi.org/10.5281/zenodo.15669241
+  kind: corpus
+  modalities: [ir, nmr, 3d, smiles]
+  scale: "177,461 molecules with IR; 1,255 with DFT 1H/13C shifts"
+  license: CDLA-Permissive-2.0
+  note: Anharmonic MD-derived IR rather than harmonic approximations.
+
+- name: MassSpecGym
+  title: "MassSpecGym: A benchmark for the discovery and identification of molecules"
+  year: 2024
+  venue: "NeurIPS 2024 D&B (Spotlight)"
+  paper: https://arxiv.org/abs/2410.23326
+  data: https://huggingface.co/datasets/roman-bushuiev/MassSpecGym
+  kind: benchmark
+  modalities: [ms, smiles]
+  scale: "231k high-quality spectra over 29k unique structures"
+  license: MIT
+  note: De novo generation, retrieval and simulation under one leakage-aware split.
+
+- name: MolPuzzle
+  title: "Can LLMs Solve Molecule Puzzles? A Multimodal Benchmark for Molecular Structure Elucidation"
+  year: 2024
+  venue: "NeurIPS 2024 D&B"
+  paper: https://proceedings.neurips.cc/paper_files/paper/2024/hash/f2b9e8e7a36d43ddfd3d55113d56b1e0-Abstract-Datasets_and_Benchmarks_Track.html
+  data: https://huggingface.co/datasets/kguo2/MolPuzzle_data
+  kind: benchmark
+  modalities: [ir, ms, nmr, image, text]
+  scale: "217 instances, 868 spectrum images, 23,678 QA samples"
+  license: MIT
+  note: Tests multi-step reasoning over interlinked spectral clues, not single-shot accuracy.
+
+- name: MaCBench
+  title: "Probing the limitations of multimodal language models for chemistry and materials research"
+  year: 2025
+  venue: "Nature Computational Science"
+  paper: https://doi.org/10.1038/s43588-025-00836-3
+  data: https://huggingface.co/datasets/jablonkagroup/MaCBench
+  kind: benchmark
+  modalities: [image, text, crystal]
+  scale: "1,153 expert-curated questions across 35 configurations"
+  license: MIT
+  note: Finds that VLMs perceive well but fail at spatial reasoning and cross-modal synthesis.
+
+- name: MMChemOCR / MMCR-Bench / MMChemBench
+  title: "ChemVLM: Exploring the Power of Multimodal Large Language Models in Chemistry Area"
+  year: 2024
+  venue: "AAAI 2025"
+  paper: https://arxiv.org/abs/2408.07246
+  data: https://huggingface.co/datasets/Duke-de-Artois/ChemVLM_test_data
+  kind: benchmark
+  modalities: [image, text, smiles]
+  scale: "1,000 OCR pairs; 1,000 exam questions; 700 captioning/property samples"
+  license: MIT
+  note: The evaluation triple released with ChemVLM; bilingual EN/ZH.
+
+- name: MotifHallu
+  title: "HIGHT: Hierarchical Graph Tokenization for Molecule-Language Alignment"
+  year: 2025
+  venue: "ICML 2025"
+  paper: https://arxiv.org/abs/2406.14021
+  data: https://huggingface.co/datasets/lfhase/HIGHT
+  kind: benchmark
+  modalities: [graph, text]
+  scale: "23,924 questions over 3,300 molecules and 38 RDKit functional groups"
+  license: CC BY-NC 4.0
+  note: The first hallucination benchmark aimed specifically at chemical motifs.
+
+- name: Materials Project
+  title: "The Materials Project: A materials genome approach to accelerating materials innovation"
+  year: 2013
+  venue: "APL Materials"
+  paper: https://doi.org/10.1063/1.4812323
+  data: https://materialsproject.org/
+  kind: corpus
+  modalities: [crystal, 3d]
+  scale: "86,680 inorganic compounds and 530,243 nanoporous materials (live)"
+  license: CC BY 4.0
+  note: The training substrate for generative crystal models such as MatterGen.

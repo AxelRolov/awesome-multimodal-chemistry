@@ -1,0 +1,63 @@
+name: Add a model, dataset or benchmark
+description: Suggest something missing from the list
+title: "[add] "
+labels: [addition]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks. If you can open a PR against `data/*.yaml` instead, that is faster —
+        see [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md).
+
+  - type: input
+    id: name
+    attributes:
+      label: Name
+      placeholder: DiffSpectra
+    validations: { required: true }
+
+  - type: input
+    id: paper
+    attributes:
+      label: Paper URL
+      description: arXiv abs link preferred, otherwise the DOI URL.
+      placeholder: https://arxiv.org/abs/2507.06853
+    validations: { required: true }
+
+  - type: input
+    id: code
+    attributes:
+      label: Code URL
+      description: Leave blank if there is none. Please do not link third-party forks.
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What is it?
+      options: [Model or system, Dataset or benchmark, Survey, Critical evaluation, Governance reference]
+    validations: { required: true }
+
+  - type: checkboxes
+    id: modalities
+    attributes:
+      label: Modalities it uses
+      options:
+        - label: text
+        - label: SMILES / SELFIES / IUPAC
+        - label: 2D graph
+        - label: 3D conformers or crystals
+        - label: images
+        - label: IR
+        - label: NMR
+        - label: MS
+        - label: reactions / conditions
+        - label: knowledge graph
+    validations: { required: true }
+
+  - type: textarea
+    id: note
+    attributes:
+      label: Why it belongs
+      description: One or two sentences. A concrete number from the paper is worth more than an adjective.
+      placeholder: Reports 40.76% top-1 and 99.49% top-10 elucidation accuracy by conditioning SE(3) diffusion on multiple spectra at once.
+    validations: { required: true }

@@ -1,0 +1,28 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check-generated:
+    name: README and site are in sync with data/
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Validate YAML and regenerate
+        run: python scripts/build.py --check
+      - name: How to fix
+        if: failure()
+        run: |
+          echo "::error::Generated files are stale."
+          echo "Run 'python scripts/build.py' locally and commit README.md + docs/index.html."
