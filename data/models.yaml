@@ -8,7 +8,7 @@
 #   paper      canonical paper URL (arXiv abs preferred, else DOI)
 #   code       official repository, or null
 #   license    code license as stated by the authors, or "unspecified"
-#   category   one of: molecule-text | multi-view | mllm | image | reaction | spectra | materials | agent
+#   category   one of: molecule-text | multi-view | mllm | image | reaction | spectra | materials
 #   modalities free tags drawn from: text, smiles, graph, 3d, image, ir, nmr, ms, reaction, kg, crystal
 #   tasks      free tags
 #   note       one line on what makes it worth reading
@@ -72,18 +72,6 @@
   modalities: [graph, 3d]
   tasks: [property prediction]
   note: The canonical 2D↔3D multi-view pretraining recipe; 3D as a teacher for a 2D encoder.
-
-- name: ChemBERTa-2
-  title: "ChemBERTa-2: Towards Chemical Foundation Models"
-  year: 2022
-  venue: "arXiv"
-  paper: https://arxiv.org/abs/2209.01712
-  code: https://github.com/seyonechithrananda/bert-loves-chemistry
-  license: MIT
-  category: molecule-text
-  modalities: [smiles]
-  tasks: [property prediction]
-  note: Not multimodal itself, but the SMILES-encoder baseline most multimodal papers compare against.
 
 - name: Uni-Mol
   title: "Uni-Mol: A Universal 3D Molecular Representation Learning Framework"
@@ -156,42 +144,6 @@
   modalities: [graph, text, smiles]
   tasks: [qa, property prediction, reaction prediction]
   note: Two-stage alignment + instruction tuning on a frozen LLM; the practical assistant template.
-
-- name: Chemist-X
-  title: "Chemist-X: Large Language Model-empowered Agent for Reaction Condition Recommendation in Chemical Synthesis"
-  year: 2023
-  venue: "arXiv"
-  paper: https://arxiv.org/abs/2311.10776
-  code: https://github.com/Nikki0526/ChemistX
-  license: MIT
-  category: agent
-  modalities: [text, reaction]
-  tasks: [condition recommendation]
-  note: RAG-style agent over reaction databases with wet-lab control in the loop.
-
-- name: ChemCrow
-  title: "Augmenting large language models with chemistry tools"
-  year: 2023
-  venue: "Nature Machine Intelligence"
-  paper: https://doi.org/10.1038/s42256-024-00832-8
-  code: https://github.com/ur-whitelab/chemcrow-public
-  license: MIT
-  category: agent
-  modalities: [text]
-  tasks: [synthesis planning, tool use]
-  note: 18 expert tools behind an LLM; the reference point for tool-augmented rather than end-to-end multimodality.
-
-- name: Coscientist
-  title: "Autonomous chemical research with large language models"
-  year: 2023
-  venue: "Nature"
-  paper: https://doi.org/10.1038/s41586-023-06792-0
-  code: https://github.com/gomesgroup/coscientist
-  license: "Apache-2.0 with Commons Clause"
-  category: agent
-  modalities: [text, image]
-  tasks: [experiment design, lab automation]
-  note: GPT-4 with search, code execution and robotic execution; planned and ran real reactions.
 
 - name: GIT-Mol
   title: "GIT-Mol: A Multi-modal Large Language Model for Molecular Science with Graph, Image, and Text"
@@ -541,14 +493,206 @@
   tasks: [property prediction, simulation]
   note: The forward simulator that pairs with MatterGen to close the generate-then-verify loop.
 
-- name: RXN for Chemistry / RoboRXN
-  title: "Inferring experimental procedures from text-based representations of chemical reactions"
-  year: 2021
-  venue: "Nature Communications"
-  paper: https://doi.org/10.1038/s41467-021-22951-1
-  code: https://github.com/rxn4chemistry/rxn4chemistry
+- name: Text+Chem T5
+  title: "Unifying Molecular and Textual Representations via Multi-task Language Modelling"
+  year: 2023
+  venue: "ICML 2023"
+  paper: https://arxiv.org/abs/2301.12586
+  code: https://github.com/GT4SD/multitask_text_and_chemistry_t5
   license: MIT
-  category: agent
-  modalities: [reaction, text]
-  tasks: [procedure generation, lab automation]
-  note: Reaction SMILES → machine-readable action sequences → a robot that actually runs them.
+  category: molecule-text
+  modalities: [text, smiles, reaction]
+  tasks: [captioning, text-to-molecule, reaction prediction]
+  note: One multi-task T5 covering captioning, text-conditional generation and reaction prediction without per-task fine-tuning.
+
+- name: MolXPT
+  title: "MolXPT: Wrapping Molecules with Text for Generative Pre-training"
+  year: 2023
+  venue: "ACL 2023"
+  paper: https://arxiv.org/abs/2305.10688
+  code: null
+  license: unspecified
+  category: molecule-text
+  modalities: [text, smiles]
+  tasks: [property prediction, text-to-molecule, captioning]
+  note: Replaces molecule names in PubMed text with their SMILES inline, so structure and surrounding prose condition each other in one stream.
+
+- name: GIMLET
+  title: "GIMLET: A Unified Graph-Text Model for Instruction-Based Molecule Zero-Shot Learning"
+  year: 2023
+  venue: "NeurIPS 2023"
+  paper: https://arxiv.org/abs/2306.13089
+  code: https://github.com/zhao-ht/GIMLET
+  license: MIT
+  category: molecule-text
+  modalities: [graph, text]
+  tasks: [zero-shot property prediction, instruction following]
+  note: Encodes graph and instruction text in one transformer via generalised position embeddings, with no separate graph encoder.
+
+- name: MolReGPT
+  title: "Empowering Molecule Discovery for Molecule-Caption Translation with Large Language Models: A ChatGPT Perspective"
+  year: 2023
+  venue: "IEEE TKDE 2024"
+  paper: https://arxiv.org/abs/2306.06615
+  code: https://github.com/phenixace/MolReGPT
+  license: unspecified
+  category: molecule-text
+  modalities: [text, smiles]
+  tasks: [captioning, text-to-molecule]
+  note: Retrieval-augmented in-context prompting that matches fine-tuned MolT5 with no training at all; the baseline any new model should beat.
+
+- name: nach0
+  title: "nach0: Multimodal Natural and Chemical Languages Foundation Model"
+  year: 2023
+  venue: "Chemical Science 2024"
+  paper: https://arxiv.org/abs/2311.12410
+  code: https://github.com/insilicomedicine/nach0
+  license: unspecified
+  category: molecule-text
+  modalities: [text, smiles, reaction]
+  tasks: [molecular generation, reaction prediction, qa]
+  note: Instruction-tuned encoder-decoder pretrained jointly on papers, patents and SMILES, spanning biomedical NLP and chemical generation.
+
+- name: MolBind
+  title: "MolBind: Multimodal Alignment of Language, Molecules, and Proteins"
+  year: 2024
+  venue: "arXiv"
+  paper: https://arxiv.org/abs/2403.08167
+  code: null
+  license: unspecified
+  category: molecule-text
+  modalities: [text, graph, 3d]
+  tasks: [retrieval, zero-shot alignment]
+  note: Binds four modalities to a shared space through pairwise contrastive training, in the manner of ImageBind; ships the MolBind-M4 dataset.
+
+- name: Atomas
+  title: "Atomas: Hierarchical Alignment on Molecule-Text for Unified Molecule Understanding and Generation"
+  year: 2024
+  venue: "ICLR 2025"
+  paper: https://arxiv.org/abs/2404.16880
+  code: https://github.com/yikunpku/Atomas
+  license: unspecified
+  category: molecule-text
+  modalities: [text, smiles]
+  tasks: [captioning, text-to-molecule, retrieval]
+  note: Aligns SMILES fragments to text at three semantic levels rather than only molecule-to-sentence, which is where most contrastive models stop.
+
+- name: 3D-MoLM
+  title: "Towards 3D Molecule-Text Interpretation in Language Models"
+  year: 2024
+  venue: "ICLR 2024"
+  paper: https://arxiv.org/abs/2401.13923
+  code: https://github.com/lsh0520/3D-MoLM
+  license: unspecified
+  category: mllm
+  modalities: [3d, text]
+  tasks: [captioning, qa, retrieval]
+  note: Projects a 3D encoder into a language model and instruction-tunes on 3D-MoIT for properties that 2D topology cannot answer.
+
+- name: MV-Mol
+  title: "Learning Multi-view Molecular Representations with Structured and Unstructured Knowledge"
+  year: 2024
+  venue: "KDD 2024"
+  paper: https://arxiv.org/abs/2406.09841
+  code: https://github.com/PharMolix/OpenBioMed
+  license: MIT
+  category: multi-view
+  modalities: [graph, text, kg]
+  tasks: [property prediction, retrieval]
+  note: Text prompts select which "view" of a molecule to encode, fusing structure with biomedical text and knowledge-graph triples.
+
+- name: BioMedGPT
+  title: "BioMedGPT: Open Multimodal Generative Pre-trained Transformer for BioMedicine"
+  year: 2023
+  venue: "arXiv"
+  paper: https://arxiv.org/abs/2308.09442
+  code: https://github.com/PharMolix/OpenBioMed
+  license: MIT
+  category: mllm
+  modalities: [graph, text]
+  tasks: [qa, molecule understanding]
+  note: Aligns molecule-graph and protein encoders into a 7B backbone so both can be queried in free text.
+
+- name: PRESTO
+  title: "PRESTO: Progressive Pretraining Enhances Synthetic Chemistry Outcomes"
+  year: 2024
+  venue: "Findings of EMNLP 2024"
+  paper: https://arxiv.org/abs/2406.13193
+  code: https://github.com/IDEA-XL/PRESTO
+  license: Apache-2.0
+  category: reaction
+  modalities: [graph, text, reaction]
+  tasks: [reaction prediction, retrosynthesis, reagent prediction]
+  note: Models interaction between multiple molecule graphs at once, which single-molecule projectors cannot represent for reactions.
+
+- name: InstructBioMol
+  title: "Advancing biomolecular understanding and design following human instructions"
+  year: 2024
+  venue: "Nature Machine Intelligence 2025"
+  paper: https://arxiv.org/abs/2410.07919
+  code: https://github.com/HICAI-ZJU/InstructBioMol
+  license: MIT
+  category: mllm
+  modalities: [text, graph, 3d]
+  tasks: [molecule design, qa, protein design]
+  note: Motif-guided extraction encodes 2D graph and 3D structure together; any-to-any instruction following across molecules and proteins.
+
+- name: Img2Mol
+  title: "Img2Mol – accurate SMILES recognition from molecular graphical depictions"
+  year: 2021
+  venue: "Chemical Science"
+  paper: https://doi.org/10.1039/D1SC01839F
+  code: https://github.com/bayer-science-for-a-better-life/Img2Mol
+  license: "Apache-2.0 (code); CC BY-NC 4.0 (weights)"
+  category: image
+  modalities: [image, smiles]
+  tasks: [ocr, image-to-smiles]
+  note: CNN encoder feeding a pretrained SMILES decoder; recovers up to 88% of depictions and predates the transformer OCSR wave.
+
+- name: RxnScribe
+  title: "RxnScribe: A Sequence Generation Model for Reaction Diagram Parsing"
+  year: 2023
+  venue: "J. Chem. Inf. Model."
+  paper: https://arxiv.org/abs/2305.11845
+  code: https://github.com/thomas0809/RxnScribe
+  license: MIT
+  category: image
+  modalities: [image, reaction]
+  tasks: [reaction diagram parsing, information extraction]
+  note: Casts diagram parsing as sequence generation; 80.0% soft-match F1 over 1,378 annotated diagrams, and the direct predecessor to RxnIM.
+
+- name: CDVAE
+  title: "Crystal Diffusion Variational Autoencoder for Periodic Material Generation"
+  year: 2021
+  venue: "ICLR 2022"
+  paper: https://arxiv.org/abs/2110.06197
+  code: https://github.com/txie-93/cdvae
+  license: MIT
+  category: materials
+  modalities: [crystal, 3d, graph]
+  tasks: [crystal generation, property optimisation]
+  note: The SE(3)-equivariant diffusion decoder that MatterGen and most later crystal generators build on.
+
+- name: GNoME
+  title: "Scaling deep learning for materials discovery"
+  year: 2023
+  venue: "Nature"
+  paper: https://doi.org/10.1038/s41586-023-06735-9
+  code: https://github.com/google-deepmind/materials_discovery
+  license: "Apache-2.0 (code); CC BY-NC 4.0 (database)"
+  category: materials
+  modalities: [crystal, graph, 3d]
+  tasks: [stability prediction, materials discovery]
+  note: 2.2M structures and 381,000 predicted stable materials; the filter that gives generative crystal models something to be checked against.
+
+- name: CrystaLLM
+  title: "Crystal structure generation with autoregressive large language modeling"
+  year: 2023
+  venue: "Nature Communications"
+  paper: https://arxiv.org/abs/2307.04340
+  code: https://github.com/lantunes/CrystaLLM
+  license: MIT
+  category: materials
+  modalities: [text, crystal]
+  tasks: [crystal generation, structure prediction]
+  note: Treats the CIF file itself as the language to model, making crystals a text modality rather than a geometric one.

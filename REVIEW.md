@@ -77,7 +77,7 @@ either jointly learns from, aligns, or translates between two or more chemically
 modalities. Those modalities include symbolic strings such as SMILES or SELFIES, atom–bond
 graphs, 3D coordinates or conformers, spectra, molecular depictions or reaction figures,
 natural language, structured reaction roles and conditions, and in some cases external
-knowledge graphs or robot-tool interfaces. This definition intentionally includes both
+knowledge graphs. This definition intentionally includes both
 **representation models** and **generation models**, because the literature now treats
 alignment, retrieval, editing and conditional generation as a connected design space rather
 than isolated tasks.
@@ -91,7 +91,7 @@ models instead bridge chemically structured inputs with human-readable or
 instrument-generated signals, such as graph–text, image–text, spectra–structure or
 reaction–procedure models. The former usually improves physical fidelity and transfer on
 property tasks; the latter expands the set of tasks that can be performed in natural
-language, document intelligence, reasoning, or automated experimentation.
+language, document intelligence and reasoning.
 
 Representation models are best understood as learning a shared or comparable latent space
 that supports zero-shot retrieval, property prediction, question answering, descriptor
@@ -153,7 +153,7 @@ itself is a structure rather than text.
 Architecturally, the field has converged on several families.
 
 - **Dual-encoder contrastive models** align modalities through InfoNCE-like objectives and
-  excel at retrieval or zero-shot transfer: MoMu, MoleculeSTM, MolFM, and — in spectroscopy —
+  excel at retrieval or zero-shot transfer: MoMu, MoleculeSTM, MolFM, and, in spectroscopy,
   [CReSS](https://doi.org/10.1021/acs.analchem.1c04307).
 - **Encoder–decoder translators** such as MolT5, [BioT5](https://arxiv.org/abs/2310.07276)
   and [MSNovelist](https://doi.org/10.1038/s41592-022-01486-3) convert one representation
@@ -189,8 +189,8 @@ a different scientific workflow.
 
 **Molecular and bioactivity databases.**
 [PubChem](https://doi.org/10.1093/nar/gkae1059) provides large-scale structure, property and
-some text supervision — 118.6M compounds and 295.4M bioactivity data points as of September
-2024 — while [ChEMBL](https://doi.org/10.1093/nar/gkad1004) adds curated assay text.
+some text supervision, 118.6M compounds and 295.4M bioactivity data points as of September
+2024, while [ChEMBL](https://doi.org/10.1093/nar/gkad1004) adds curated assay text.
 [PubChemSTM](https://huggingface.co/datasets/chao1224/MoleculeSTM), built for MoleculeSTM,
 contains more than 280,000 structure–text pairs;
 [MolLM](https://doi.org/10.1093/bioinformatics/btae260) constructed 160,000 molecule–text
@@ -244,7 +244,7 @@ task-specific paired data for text, image and SMILES across five multimodal task
 relies on large synthetic reaction-image pretraining plus downstream task instructions. The
 pattern matters: unlike natural-image vision-language work, chemistry vision models typically
 depend on synthetic rendering, domain-specific augmentation or literature-scraped diagrams
-rather than truly web-scale paired corpora.
+rather than web-scale paired corpora.
 
 The full dataset table, with scale figures quoted from source, is in the
 [index](README.md#datasets-and-benchmarks).
@@ -253,7 +253,7 @@ The full dataset table, with scale figures quoted from source, is in the
 
 **Property prediction.** Multimodal models help in two different ways. First, they provide
 better transferable encoders by fusing structured and unstructured knowledge, which improves
-low-data transfer on MoleculeNet, QM9 and related tasks — MoleculeSTM, MolFM, MolLM, HIGHT
+low-data transfer on MoleculeNet, QM9 and related tasks. MoleculeSTM, MolFM, MolLM, HIGHT
 and Mol-LLaMA all show this. Second, they enable natural-language or image-mediated
 interfaces to property tasks, as in ChemVLM and ChemMLLM. The biggest gains occur when
 modalities contribute complementary information rather than redundant encodings: 3D geometry
@@ -267,16 +267,16 @@ prediction and retrosynthesis. MM-RCR shows that condition recommendation benefi
 combining reaction graphs, reaction strings and textual corpora. RxnIM extends the pipeline
 upstream by converting graphical reaction schemes into structured, machine-readable records
 including conditions, reporting 88% average F1. Together these indicate that the next
-synthesis stack will combine image parsing, reaction understanding, condition recommendation
-and robotic execution rather than solving each in isolation.
+synthesis stack will combine image parsing, reaction understanding and condition
+recommendation rather than solving each in isolation.
 
 **Molecule design and editing.** The field is moving from text-conditioned generation via
 seq2seq transformers to structurally stronger latent and diffusion-based approaches.
 MoleculeSTM introduced open-vocabulary text-based editing; MolT5 and BioT5 made
 text↔molecule generation mainstream; 3M-Diffusion, LDMol and UTGDiff show that diffusion can
 outperform or strongly challenge autoregressive baselines when the latent space is chemically
-meaningful. ChemMLLM is notable because it turns generation into a genuinely multimodal
-process — the model moves between text, molecule images and SMILES within one framework,
+meaningful. ChemMLLM turns generation into a multimodal process in its own right: the model moves
+between text, molecule images and SMILES within one framework,
 reporting 0.87 average similarity and 0.56 accuracy on img2SMILES at 34B, and a 4.27 versus
 1.97 property improvement over a GPT-4o baseline on image-based optimisation.
 
@@ -300,29 +300,17 @@ in the way chemical multimodal LLMs are, materials tasks demand physically struc
 and benefit from the same shift from discriminative representation learning to conditional
 generation.
 
-**Lab automation.** The state of the art is still best described as **tool-augmented
-systems** rather than end-to-end trained multimodal models.
-[Coscientist](https://doi.org/10.1038/s41586-023-06792-0) uses GPT-4 with search, code
-execution and experimental automation to plan and run chemistry experiments.
-[ChemCrow](https://doi.org/10.1038/s42256-024-00832-8) wires 18 expert tools behind an LLM.
-[RXN for Chemistry / RoboRXN](https://doi.org/10.1038/s41467-021-22951-1) converts reaction
-representations into machine-readable instructions and executes synthesis remotely.
-[Chemist-X](https://arxiv.org/abs/2311.10776) positions an LLM agent for reaction-condition
-recommendation with retrieval and wet-lab control. These systems reveal the practical
-endpoint of multimodal chemistry: not merely understanding molecules, but acting on chemical
-information across text, databases, images, instruments and robots.
-
 ## Limitations, compute and governance
 
-**1 — Paired-data scarcity and modality imbalance.** Large general image–text corpora have no
+**1. Paired-data scarcity and modality imbalance.** Large general image–text corpora have no
 chemistry equivalent. Molecule–text pair sets are often in the hundreds of thousands rather
-than hundreds of millions; spectral and procedural corpora are scarcer still; and genuinely
+than hundreds of millions; spectral and procedural corpora are scarcer still; and
 aligned all-modal chemistry corpora are rare. This is why many chemistry MLLMs either
 synthesise supervision, as in ChemDFM-X, or rely on two-stage training with frozen backbones,
 as in ChemVLM and InstructMol. It also explains why specialist OCR, reaction-image and
 spectral models remain competitive: they are tuned to denser supervision in their own niche.
 
-**2 — Data rights and reproducibility.** The MoleculeSTM authors explicitly note that PubChem
+**2. Data rights and reproducibility.** The MoleculeSTM authors explicitly note that PubChem
 itself is permissive but that the textual side of PubChemSTM inherits heterogeneous licences,
 which hindered full release. InstructMol makes its own restrictions explicit: code is
 Apache-2.0, but the data are non-commercial and intended for research use only. More broadly,
@@ -332,17 +320,17 @@ chemistry, where literature, patents and instrument data are mixed together, lic
 compatibility is not a minor administrative detail; it can determine whether a promising
 model is actually reproducible.
 
-**3 — Benchmark fragility.** ORDerly showed that missing cleaning steps in reaction-condition
+**3. Benchmark fragility.** ORDerly showed that missing cleaning steps in reaction-condition
 datasets can silently inflate performance. Newer work argues that the most widely used
 retrosynthesis corpus has substantial problems, and that reported rankings largely dissolve
 once search and evaluation are standardised. In multimodal chemistry, leakage risk is
 compounded because the same molecule or reaction can appear across literature, patents,
-images and derived synthetic data. The literature is therefore moving — rightly — toward
+images and derived synthetic data. The literature is therefore moving, rightly, toward
 harder splits, external validation and benchmark suites such as MassSpecGym,
 [MaCBench](https://doi.org/10.1038/s43588-025-00836-3) and MolPuzzle that probe reasoning and
 multimodal integration rather than a single exact-match score.
 
-**4 — Compute concentration.** ChemVLM's published training setup uses 16 A100 80 GB GPUs and
+**4. Compute concentration.** ChemVLM's published training setup uses 16 A100 80 GB GPUs and
 26B total parameters; ChemMLLM releases 7B and 34B variants; Uni-Mol2 reports 1.1B parameters
 and 800M conformers; and many recent systems are built by adapting or wrapping already-large
 backbones such as ChemLLM-20B, Vicuna-7B or LLaMA derivatives. The trend is toward
@@ -350,18 +338,18 @@ parameter-efficient finetuning and modular projectors, but frontier chemistry mu
 is still compute-intensive and increasingly dependent on access to pre-existing large models
 rather than de novo training by ordinary academic groups.
 
-**5 — Chemical hallucination and epistemic overreach.** HIGHT shows that node-centric
+**5. Chemical hallucination and epistemic overreach.** HIGHT shows that node-centric
 tokenisation induces specific motif hallucinations, and that chemically sensible hierarchical
 tokenisation reduces them by 40%. ChemMLLM illustrates another form of limitation: while it
 outperforms general MLLMs, it still trails task-specific OCR systems such as MolScribe and
 DECIMER on strict image-to-SMILES conversion.
 [ChemBench](https://www.nature.com/articles/s41557-025-01815-x) adds calibration to the
-picture — chemistry LLMs can beat expert chemists on average while failing badly on
+picture: chemistry LLMs can beat expert chemists on average while failing badly on
 safety-relevant items and remaining poorly calibrated about their own confidence. This is a
 common pattern: generalist multimodal systems are valuable for breadth, but specialists still
 dominate when the objective is a tightly defined subtask with precise error tolerances.
 
-**6 — Governance and dual use.** At a general level, the
+**6. Governance and dual use.** At a general level, the
 [EU AI Act](https://eur-lex.europa.eu/eli/reg/2024/1689/oj/eng) now imposes provider
 obligations for general-purpose AI models (Chapter V, Arts. 51–56), and the
 [NIST AI Risk Management Framework](https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-ai-rmf-10)
@@ -383,7 +371,7 @@ built on top of high-quality specialist modules rather than learning everything 
 
 Scientifically, the most promising unsolved problem is **multimodal grounding under chemical
 constraints**. The field has many models that align modalities and several that generate
-plausible structures, but relatively few that can guarantee consistency across modalities —
+plausible structures, but relatively few that can guarantee consistency across modalities:
 for example, that a generated molecule, its IR spectrum, its NMR features, its depiction and
 its verbal description all cohere physically. Spectroscopy work such as DiffSpectra and the
 newer analytical foundation models is the clearest move in that direction. If that line
@@ -396,8 +384,8 @@ chemically meaningful token hierarchies; 3D-MolT5 and UniMoT argue for unified t
 Mol-LLaMA and InstructMol show the continued value of projector- and Q-Former-style
 alignment; and diffusion models are becoming the preferred generator whenever the target
 object has non-trivial combinatorial or geometric coherence. The likely winners will be
-models that treat chemistry not as "text plus a molecule string", but as a genuinely
-multi-signal scientific environment.
+models that treat chemistry as a multi-signal scientific environment rather than as text
+plus a molecule string.
 
 At present, the most rigorous conclusion is a balanced one. **Representation learning is
 already mature enough to be broadly useful. Generation is advancing quickly but remains more

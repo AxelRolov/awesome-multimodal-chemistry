@@ -28,15 +28,18 @@ and conditions, or knowledge graphs.
 
 Also in scope, deliberately:
 
-- **Single-modality specialists that multimodal models are measured against** — MolScribe,
+- **Single-modality specialists that multimodal models are measured against**: MolScribe,
   DECIMER, MSNovelist. Without them the comparisons are meaningless.
-- **Tool-augmented agents** — ChemCrow, Coscientist. They are how multimodal chemistry
-  currently reaches the bench.
-- **Critical evaluations** — papers arguing that a benchmark is broken belong in
+- **Critical evaluations**: papers arguing that a benchmark is broken belong in
   `reading.yaml` under `critiques`.
 
 Out of scope: general-purpose LLMs with no chemistry-specific training or evaluation; pure
 2D-only property predictors with no second modality; blog posts and press releases.
+
+**Tool-augmented agents are out of scope.** ChemCrow, Coscientist and similar systems wrap a
+text-only LLM around external tools. The tools are multimodal; the model is not. An agent
+belongs here only if a multimodal LLM does the work and the extra modality is load-bearing,
+as in RxnIM parsing reaction images. "The pipeline touches spectra somewhere" is not enough.
 
 ## Entry format
 
@@ -57,7 +60,7 @@ Out of scope: general-purpose LLMs with no chemistry-specific training or evalua
 ```
 
 `category` — one of `molecule-text`, `multi-view`, `mllm`, `image`, `reaction`, `spectra`,
-`materials`, `agent`.
+`materials`.
 
 `modalities` — drawn from `text`, `smiles`, `graph`, `3d`, `image`, `ir`, `nmr`, `ms`,
 `reaction`, `kg`, `crystal`. Add a new tag only if none of these fits, and update
@@ -65,7 +68,12 @@ Out of scope: general-purpose LLMs with no chemistry-specific training or evalua
 
 ### `data/datasets.yaml`
 
-Same shape, plus `kind` (`corpus`, `pretraining`, `instruction`, `benchmark`) and `scale`.
+Same shape, plus `kind` (`corpus`, `pretraining`, `instruction`, `benchmark`), `scale`, and
+`pairing`.
+
+`pairing` — the modality pair the dataset actually aligns, which is how the table is grouped:
+`structure-text`, `spectra`, `image`, `reaction`, `geometry`, `materials`. Pick the pair the
+dataset is *used for*, not every modality it contains.
 
 **`scale` must be quoted from the source**, not estimated. Write
 `"231k spectra over 29k unique structures"`, not `"large MS/MS dataset"`.

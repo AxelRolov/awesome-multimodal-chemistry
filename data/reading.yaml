@@ -78,6 +78,20 @@ surveys:
     url: https://arxiv.org/abs/2408.09461
     note: Directly contrasts single-modality against multi-view encoders for property prediction.
 
+  - title: "Scientific Large Language Models: A Survey on Biological & Chemical Domains"
+    authors: "Qiang Zhang et al."
+    year: 2025
+    venue: "ACM Computing Surveys"
+    url: https://arxiv.org/abs/2401.14656
+    note: Spans textual, molecular, protein and genomic modalities, so it shows where chemistry sits inside scientific LLMs generally.
+
+  - title: "A Systematic Survey of Chemical Pre-trained Models"
+    authors: "Jun Xia et al."
+    year: 2023
+    venue: "IJCAI 2023 Survey Track"
+    url: https://www.ijcai.org/proceedings/2023/760
+    note: Covers the pretraining strategies that multimodal encoders inherited, and the pre-LLM baselines they are measured against.
+
   - title: "Materials science in the era of large language models: a perspective"
     authors: "Ge Lei, Ronan Docherty, Samuel J. Cooper"
     year: 2024

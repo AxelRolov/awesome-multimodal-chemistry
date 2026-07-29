@@ -1,7 +1,12 @@
 # Datasets and benchmarks. Scale figures are quoted from the source paper or the
 # live database, not estimated. `data` points at the most stable download route.
+#
+# `pairing` is the modality pair the dataset actually aligns, which is the axis
+# that decides what you can train on it:
+#   structure-text | geometry | reaction | spectra | image | materials
 
 - name: PubChem
+  pairing: structure-text
   title: "PubChem 2025 update"
   year: 2025
   venue: "Nucleic Acids Research"
@@ -14,6 +19,7 @@
   note: The backbone corpus behind almost every molecule–text pretraining set.
 
 - name: ChEMBL
+  pairing: structure-text
   title: "The ChEMBL Database in 2023"
   year: 2023
   venue: "Nucleic Acids Research"
@@ -26,6 +32,7 @@
   note: Assay descriptions make it a genuine text modality, not only a label source.
 
 - name: PubChemSTM
+  pairing: structure-text
   title: "Multi-modal molecule structure–text model for text-based retrieval and editing"
   year: 2023
   venue: "Nature Machine Intelligence"
@@ -38,6 +45,7 @@
   note: Built for MoleculeSTM; heterogeneous text licences blocked a full release.
 
 - name: PubChem324k
+  pairing: structure-text
   title: "MolCA: Molecular Graph-Language Modeling with Cross-Modal Projector and Uni-Modal Adapter"
   year: 2023
   venue: "EMNLP 2023"
@@ -50,6 +58,7 @@
   note: The default graph–text pretraining set for projector-based assistants.
 
 - name: MolLM dataset
+  pairing: structure-text
   title: "MolLM: a unified language model for integrating biomedical text with 2D and 3D molecular representations"
   year: 2024
   venue: "Bioinformatics (ISMB 2024)"
@@ -62,6 +71,7 @@
   note: Rare in carrying 2D, 3D and text for the same molecule.
 
 - name: HiPubChem
+  pairing: structure-text
   title: "HIGHT: Hierarchical Graph Tokenization for Molecule-Language Alignment"
   year: 2025
   venue: "ICML 2025"
@@ -74,6 +84,7 @@
   note: Adds explicit functional-group supervision to graph–text alignment.
 
 - name: Mol-Instructions
+  pairing: structure-text
   title: "Mol-Instructions: A Large-Scale Biomolecular Instruction Dataset for Large Language Models"
   year: 2024
   venue: "ICLR 2024"
@@ -86,6 +97,7 @@
   note: The default instruction-tuning corpus for chemistry assistants.
 
 - name: ChEBI-20
+  pairing: structure-text
   title: "Text2Mol: Cross-Modal Molecule Retrieval with Natural Language Queries"
   year: 2021
   venue: "EMNLP 2021"
@@ -95,9 +107,10 @@
   modalities: [smiles, text]
   scale: "33,010 molecule–description pairs, 80/10/10 split"
   license: unspecified
-  note: Still the standard captioning and text-to-molecule benchmark.
+  note: Still the standard captioning and text-to-molecule benchmark; PubChem compounds paired with ChEBI descriptions, not one source.
 
 - name: MoleculeNet
+  pairing: geometry
   title: "MoleculeNet: a benchmark for molecular machine learning"
   year: 2018
   venue: "Chemical Science"
@@ -110,6 +123,7 @@
   note: The default property-prediction suite; also the most saturated.
 
 - name: QM9
+  pairing: geometry
   title: "Quantum chemistry structures and properties of 134 kilo molecules"
   year: 2014
   venue: "Scientific Data"
@@ -122,6 +136,7 @@
   note: The small-molecule 3D benchmark every geometry-aware model reports.
 
 - name: GEOM
+  pairing: geometry
   title: "GEOM, energy-annotated molecular conformations for property prediction and molecular generation"
   year: 2022
   venue: "Scientific Data"
@@ -134,6 +149,7 @@
   note: What made conformer-rich multi-view pretraining practical.
 
 - name: PCQM4Mv2 / OGB-LSC
+  pairing: geometry
   title: "OGB-LSC: A Large-Scale Challenge for Machine Learning on Graphs"
   year: 2021
   venue: "NeurIPS 2021 D&B"
@@ -146,6 +162,7 @@
   note: The quantum benchmark that anchors large-scale graph pretraining claims.
 
 - name: Alchemy
+  pairing: geometry
   title: "Alchemy: A Quantum Chemistry Dataset for Benchmarking AI Models"
   year: 2019
   venue: "arXiv / ICML 2019 workshop"
@@ -158,6 +175,7 @@
   note: A larger, less saturated alternative to QM9.
 
 - name: USPTO-50k
+  pairing: reaction
   title: "What's What: The (Nearly) Definitive Guide to Reaction Role Assignment"
   year: 2016
   venue: "J. Chem. Inf. Model."
@@ -170,6 +188,7 @@
   note: The canonical retrosynthesis benchmark — and the most criticised one.
 
 - name: USPTO-full
+  pairing: reaction
   title: "Retrosynthesis Prediction with Conditional Graph Logic Network"
   year: 2019
   venue: "NeurIPS 2019"
@@ -182,6 +201,7 @@
   note: The scale test for reaction models; noisier than USPTO-50k.
 
 - name: Open Reaction Database (ORD)
+  pairing: reaction
   title: "The Open Reaction Database"
   year: 2021
   venue: "JACS"
@@ -194,6 +214,7 @@
   note: Built explicitly so reaction data could be shared for machine learning.
 
 - name: ORDerly
+  pairing: reaction
   title: "ORDerly: Data Sets and Benchmarks for Chemical Reaction Data"
   year: 2024
   venue: "J. Chem. Inf. Model."
@@ -206,6 +227,7 @@
   note: Shows how much reported performance depends on undisclosed cleaning choices.
 
 - name: OpenExp
+  pairing: reaction
   title: "ReactXT: Understanding Molecular \"Reaction-ship\" via Reaction-Contextualized Molecule-Text Pretraining"
   year: 2024
   venue: "Findings of ACL 2024"
@@ -218,6 +240,7 @@
   note: First open dataset for unseen experimental procedure prediction.
 
 - name: Multimodal Spectroscopic Dataset
+  pairing: spectra
   title: "Unraveling Molecular Structure: A Multimodal Spectroscopic Dataset for Chemistry"
   year: 2024
   venue: "NeurIPS 2024 D&B"
@@ -227,9 +250,10 @@
   modalities: [nmr, ir, ms, smiles]
   scale: "1H/13C/HSQC NMR, IR and ±MS for 790,000 patent-derived molecules"
   license: CDLA-Sharing-1.0
-  note: The dataset that made joint multi-spectrum training possible at scale.
+  note: The dataset that made joint multi-spectrum training possible at scale; every spectrum is simulated, not measured.
 
 - name: IR–NMR multimodal dataset
+  pairing: spectra
   title: "IR–NMR multimodal computational spectra dataset for 177K patent-extracted organic molecules"
   year: 2025
   venue: "Scientific Data"
@@ -242,6 +266,7 @@
   note: Anharmonic MD-derived IR rather than harmonic approximations.
 
 - name: MassSpecGym
+  pairing: spectra
   title: "MassSpecGym: A benchmark for the discovery and identification of molecules"
   year: 2024
   venue: "NeurIPS 2024 D&B (Spotlight)"
@@ -254,6 +279,7 @@
   note: De novo generation, retrieval and simulation under one leakage-aware split.
 
 - name: MolPuzzle
+  pairing: spectra
   title: "Can LLMs Solve Molecule Puzzles? A Multimodal Benchmark for Molecular Structure Elucidation"
   year: 2024
   venue: "NeurIPS 2024 D&B"
@@ -266,6 +292,7 @@
   note: Tests multi-step reasoning over interlinked spectral clues, not single-shot accuracy.
 
 - name: MaCBench
+  pairing: image
   title: "Probing the limitations of multimodal language models for chemistry and materials research"
   year: 2025
   venue: "Nature Computational Science"
@@ -278,6 +305,7 @@
   note: Finds that VLMs perceive well but fail at spatial reasoning and cross-modal synthesis.
 
 - name: MMChemOCR / MMCR-Bench / MMChemBench
+  pairing: image
   title: "ChemVLM: Exploring the Power of Multimodal Large Language Models in Chemistry Area"
   year: 2024
   venue: "AAAI 2025"
@@ -290,6 +318,7 @@
   note: The evaluation triple released with ChemVLM; bilingual EN/ZH.
 
 - name: MotifHallu
+  pairing: structure-text
   title: "HIGHT: Hierarchical Graph Tokenization for Molecule-Language Alignment"
   year: 2025
   venue: "ICML 2025"
@@ -299,9 +328,10 @@
   modalities: [graph, text]
   scale: "23,924 questions over 3,300 molecules and 38 RDKit functional groups"
   license: CC BY-NC 4.0
-  note: The first hallucination benchmark aimed specifically at chemical motifs.
+  note: The first hallucination benchmark aimed specifically at chemical motifs; drawn from the ChEBI-20 test split rather than HiPubChem.
 
 - name: Materials Project
+  pairing: materials
   title: "The Materials Project: A materials genome approach to accelerating materials innovation"
   year: 2013
   venue: "APL Materials"
@@ -312,3 +342,68 @@
   scale: "86,680 inorganic compounds and 530,243 nanoporous materials (live)"
   license: CC BY 4.0
   note: The training substrate for generative crystal models such as MatterGen.
+
+- name: ChemLLMBench
+  pairing: structure-text
+  title: "What can Large Language Models do in chemistry? A comprehensive benchmark on eight tasks"
+  year: 2023
+  venue: "NeurIPS 2023 D&B"
+  paper: https://arxiv.org/abs/2305.18365
+  data: https://github.com/ChemFoundationModels/ChemLLMBench
+  kind: benchmark
+  modalities: [text, smiles, reaction]
+  scale: "8 tasks: naming, property, yield, reaction and retrosynthesis prediction, text-based design, captioning, reagent selection"
+  license: unspecified
+  note: Measures in-context learning rather than fine-tuning, which is why general LLMs look weaker here than on tuned benchmarks.
+
+- name: SMolInstruct
+  pairing: structure-text
+  title: "LlaSMol: Advancing Large Language Models for Chemistry with a Large-Scale, Comprehensive, High-Quality Instruction Tuning Dataset"
+  year: 2024
+  venue: "COLM 2024"
+  paper: https://arxiv.org/abs/2402.09391
+  data: https://huggingface.co/datasets/osunlp/SMolInstruct
+  kind: instruction
+  modalities: [smiles, text]
+  scale: "14 tasks, >3M samples"
+  license: CC BY 4.0
+  note: An order of magnitude larger than Mol-Instructions on the chemistry side; folds in ChEBI-20 and USPTO-full, so check overlap before evaluating on either.
+
+- name: L+M-24
+  pairing: structure-text
+  title: "L+M-24: Building a Dataset for Language + Molecules @ ACL 2024"
+  year: 2024
+  venue: "ACL 2024 Language + Molecules Workshop"
+  paper: https://arxiv.org/abs/2403.00791
+  data: https://github.com/language-plus-molecules/LPM-24-Dataset
+  kind: corpus
+  modalities: [smiles, text]
+  scale: "160,492 training pairs; 21,839 evaluation pairs per track; ~1.5M property–molecule pairs"
+  license: unspecified
+  note: Built around compositionality, so descriptions combine properties rather than restating one annotation; drawn from PubChem, CheF and ChemFOnt.
+
+- name: MoleculeQA
+  pairing: structure-text
+  title: "MoleculeQA: A Dataset to Evaluate Factual Accuracy in Molecular Comprehension"
+  year: 2024
+  venue: "Findings of EMNLP 2024"
+  paper: https://arxiv.org/abs/2403.08192
+  data: https://huggingface.co/datasets/hcaoaf/MoleculeQA
+  kind: benchmark
+  modalities: [smiles, text]
+  scale: "62K QA pairs over 23K molecules, one correct and three distractor options each"
+  license: MIT
+  note: Scores factual correctness instead of caption overlap, so BLEU-style metrics cannot hide a wrong claim; built on the ChEBI-20 corpus.
+
+- name: TOMG-Bench
+  pairing: structure-text
+  title: "TOMG-Bench: Evaluating LLMs on Text-based Open Molecule Generation"
+  year: 2024
+  venue: "arXiv"
+  paper: https://arxiv.org/abs/2412.14642
+  data: https://huggingface.co/datasets/Duke-de-Artois/TOMG-Bench
+  kind: benchmark
+  modalities: [smiles, text]
+  scale: "3 tasks (MolEdit, MolOpt, MolCustom), 9 subtasks, 45,000 test samples"
+  license: unspecified
+  note: Open-domain generation with no target molecule to match against, unlike ChEBI-20's fixed pairs; test set from ZINC-250K, renamed S²-Bench in later versions.

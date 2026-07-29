@@ -33,7 +33,6 @@ CATEGORIES = [
     ("reaction", "Reactions, Conditions & Procedures", "Reaction context, condition recommendation and experimental procedure prediction."),
     ("spectra", "Spectra & Structure Elucidation", "IR, NMR and MS as model inputs — retrieval, interpretation and de novo generation."),
     ("materials", "Materials & Crystals", "Property-conditioned generation and simulation of inorganic solids."),
-    ("agent", "Agents & Lab Automation", "Tool-augmented systems that act on chemical information rather than only describing it."),
 ]
 
 MODALITY_LABEL = {
@@ -48,6 +47,23 @@ KIND_LABEL = {
     "instruction": "Instruction set",
     "benchmark": "Benchmark",
 }
+
+# Datasets are grouped by the modality pair they align, because that is what
+# decides which models can be trained or evaluated on them.
+PAIRINGS = [
+    ("structure-text", "Structure ↔ Text",
+     "Molecule–description, QA and instruction pairs. The scarcest resource in the field, and the one most constrained by text licensing."),
+    ("spectra", "Structure ↔ Spectra",
+     "IR, NMR and MS paired with the structure that produced them. Mostly simulated, mostly patent-derived."),
+    ("image", "Structure ↔ Image",
+     "Depictions and reaction schemes paired with machine-readable structure. Largely synthetic renderings rather than scraped figures."),
+    ("reaction", "Reaction, Conditions & Procedures",
+     "Reaction records with roles, conditions, yields and free-text procedures."),
+    ("geometry", "Structure ↔ 3D Geometry",
+     "Conformers and quantum labels. These carry no text, but they are what every 3D branch of a multi-modal model is pretrained on."),
+    ("materials", "Crystals & Materials",
+     "Periodic structures with computed properties."),
+]
 
 
 # --------------------------------------------------------------------------- io
@@ -90,16 +106,25 @@ def md_models(models) -> str:
 
 
 def md_datasets(datasets) -> str:
-    out = ["| Dataset | Year | Type | Modalities | Scale | Licence | Paper | Data |",
-           "|---|:--:|---|---|---|---|---|---|"]
-    for d in sorted(datasets, key=lambda d: (d["year"], d["name"].lower())):
-        tags = " ".join(f"`{t}`" for t in mods(d))
-        out.append(
-            f"| **{d['name']}** | {d['year']} | {KIND_LABEL.get(d.get('kind'), '—')} | {tags} | "
-            f"{d['scale']} | {d.get('license', 'unspecified')} | "
-            f"{link(d.get('paper'), 'paper')} | {link(d.get('data'), 'download')} |"
-        )
-    return "\n".join(out) + "\n"
+    out: list[str] = []
+    for key, title, blurb in PAIRINGS:
+        rows = sorted((d for d in datasets if d.get("pairing") == key),
+                      key=lambda d: (d["year"], d["name"].lower()))
+        if not rows:
+            continue
+        out.append(f"### {title}\n")
+        out.append(f"{blurb}\n")
+        out.append("| Dataset | Year | Type | Modalities | Scale | Licence | Paper | Data |")
+        out.append("|---|:--:|---|---|---|---|---|---|")
+        for d in rows:
+            tags = " ".join(f"`{t}`" for t in mods(d))
+            out.append(
+                f"| **{d['name']}** | {d['year']} | {KIND_LABEL.get(d.get('kind'), '—')} | {tags} | "
+                f"{d['scale']} | {d.get('license', 'unspecified')} | "
+                f"{link(d.get('paper'), 'paper')} | {link(d.get('data'), 'download')} |"
+            )
+        out.append("")
+    return "\n".join(out).rstrip() + "\n"
 
 
 def md_reading(reading) -> str:
@@ -332,6 +357,7 @@ mark{background:rgba(240,171,252,.28); color:inherit; border-radius:3px; padding
 <script>
 const DATA = __PAYLOAD__;
 const CATS = __CATS__;
+const PAIRS = __PAIRS__;
 const MODS = __MODS__;
 
 let tab = 'models';
@@ -419,12 +445,13 @@ function render(){
         <div class="grid">${rows.map(r=>cardModel(r,q)).join('')}</div></section>`);
     }
   } else if(tab === 'datasets'){
-    const groups = {};
-    for(const d of DATA.datasets.filter(d => matches(d,q))){ (groups[d.kindLabel] ||= []).push(d); }
-    for(const k of Object.keys(groups).sort()){
-      n += groups[k].length;
-      out.push(`<section class="group"><h2>${esc(k)}</h2>
-        <div class="grid">${groups[k].map(r=>cardDataset(r,q)).join('')}</div></section>`);
+    const rows = DATA.datasets.filter(d => matches(d,q));
+    for(const [key,label,blurb] of PAIRS){
+      const g = rows.filter(d => d.pairing === key);
+      if(!g.length) continue;
+      n += g.length;
+      out.push(`<section class="group"><h2>${label}</h2><p>${blurb}</p>
+        <div class="grid">${g.map(r=>cardDataset(r,q)).join('')}</div></section>`);
     }
   } else {
     for(const [key,label] of [['surveys','Surveys & reviews'],['critiques','Critical evaluations'],['governance','Safety & governance']]){
@@ -482,9 +509,11 @@ def build_site(models, datasets, reading, stats, repo_url: str, date: str) -> st
             "name": d["name"], "title": d["title"], "year": d["year"], "venue": d["venue"],
             "paper": d.get("paper"), "data": d.get("data"), "license": d.get("license", ""),
             "kindLabel": KIND_LABEL.get(d.get("kind"), "Other"),
+            "pairing": d.get("pairing", ""),
             "modalities": mods(d), "scale": d["scale"], "note": d["note"],
         }
-        e["_blob"] = blob(d["name"], d["title"], d["venue"], d["note"], d["scale"], " ".join(mods(d)))
+        e["_blob"] = blob(d["name"], d["title"], d["venue"], d["note"], d["scale"],
+                          " ".join(mods(d)), d.get("pairing", ""))
         d_out.append(e)
 
     r_out = {}
@@ -506,6 +535,7 @@ def build_site(models, datasets, reading, stats, repo_url: str, date: str) -> st
     return (SITE_TEMPLATE
             .replace("__PAYLOAD__", json.dumps(payload, ensure_ascii=False))
             .replace("__CATS__", json.dumps([[k, t, b] for k, t, b in CATEGORIES], ensure_ascii=False))
+            .replace("__PAIRS__", json.dumps([[k, t, b] for k, t, b in PAIRINGS], ensure_ascii=False))
             .replace("__MODS__", json.dumps(sorted(used, key=str.lower), ensure_ascii=False))
             .replace("__REPO__", repo_url)
             .replace("__DATE__", date))
